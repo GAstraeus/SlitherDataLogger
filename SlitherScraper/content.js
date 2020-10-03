@@ -26,5 +26,6 @@ function send_data(){
 	ws.send("Message to send");
 }
 
+console.log("Yip yip");
 //scan_scores(0,scoreElements);
-//	send_data();
+send_data();

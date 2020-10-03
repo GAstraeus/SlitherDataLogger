@@ -6,12 +6,17 @@ startStopLogging = function(){
     if(log_data != null){
         stop();
     } else {
-    	  chrome.tabs.executeScript(null, {
-    file: 'content.js'
-  });
+        chrome.windows.getCurrent(function (currentWindow) {
+            chrome.tabs.query({ active: true, windowId: currentWindow.id }, function (activeTabs) {
+                activeTabs.map(function (tab) {
+                    chrome.tabs.executeScript(tab.id, { file: 'content.js', allFrames: false });
+                });
+            });
+        });
         change();
     }
 }
+
 
 change = function(){
 var elem = document.getElementById("startButton");
