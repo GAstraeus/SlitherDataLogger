@@ -1,35 +1,26 @@
-#! /usr/bin/env python3
-# TCP Echo Server
-
-import sys
-import socket
-
-# Read server IP address and port from command-line arguments
-serverIP = sys.argv[1]
-serverPort = int(sys.argv[2])
-dataLen = 1000000
+from flask import Flask
+import os
+ 
+app = Flask(__name__)
 
 
-# Create a TCP "welcoming" socket. Notice the use of SOCK_STREAM for TCP packets
-serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# Assign IP address and port number to socket
-serverSocket.bind((serverIP, serverPort))
-# Listen for incoming connection requests
-serverSocket.listen(1)
+userLogFile = userLogFile = open("userLogFile.txt", "a")
+userAddHeader = False
+leaderLogFile = userLogFile = open("LeaderLogFile.txt", "a")
+leaderAddHeader = False
 
-print('The server is ready to receive on port:  ' + str(serverPort) + '\n')
+if userLogFile.tell() == 0:
+    userLogFile.write("")
+if leaderLogFile.tell() == 0:
+    leaderLogFile.write("")
 
-# loop forever listening for incoming connection requests on "welcoming" socket
-while True:
-    # Accept incoming connection requests; allocate a new socket for data communication
-    connectionSocket, address = serverSocket.accept()
-    print("Socket created for client " + address[0] + ", " + str(address[1]))
 
-    # Receive and print the client data in bytes from "data" socket
-    data = connectionSocket.recv(dataLen).decode()
-    print("Data from client: " + data)
+@app.route('/userScore', methods=['POST'])
+def logUserScore():
+    return 'Hello World'
 
-    # Echo back to client
-    connectionSocket.send(data.encode())
-
-        
+@app.route('/leaderBoard', methods=['POST'])
+def logLeaderBoard():
+    return 'Hello World'
+ 
+app.run(host='localhost', port=30000)

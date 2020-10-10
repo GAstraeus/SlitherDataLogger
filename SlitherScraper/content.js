@@ -1,5 +1,5 @@
 function scan_scores(old_score, scoreElements){
-
+	//document.getElementsByClassName("nsi")[39].style.opacity
 	var scoreElements = document.getElementsByClassName("nsi");
 	var your_rank = scoreElements[39].getElementsByTagName("span")[4].innerText;
 	var total_players = scoreElements[39].getElementsByTagName("span")[6].innerText;
@@ -22,10 +22,32 @@ function scan_scores(old_score, scoreElements){
 }
 
 function send_data(){
-	var ws = new WebSocket("ws://localhost:3000");
+	var ws = new WebSocket("ws://localhost:3330");
 	ws.send("Message to send");
 }
 
-console.log("Yip yip");
 //scan_scores(0,scoreElements);
-send_data();
+//send_data();
+
+//setInterval
+var interval = null; 
+function test(){
+	console.log("Yoyo");
+}
+chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
+	if (msg.action == 'start_logging') {
+		if (interval == null){
+			var socket = io();
+			//interval = setInterval(test, 50);
+		}
+			
+		
+			
+	  sendResponse({farewell: "done"});
+	}
+	if (msg.action == 'stop_logging') {
+		print("Stopping");
+		clearInterval(interval);
+		sendResponse({farewell: "done"});
+	  }
+  });

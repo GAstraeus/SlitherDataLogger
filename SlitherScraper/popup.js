@@ -5,16 +5,20 @@ var startButton = document.getElementById("startButton");
 startStopLogging = function(){
     if(log_data != null){
         stop();
-    } else {
-        chrome.windows.getCurrent(function (currentWindow) {
-            chrome.tabs.query({ active: true, windowId: currentWindow.id }, function (activeTabs) {
-                activeTabs.map(function (tab) {
-                    chrome.tabs.executeScript(tab.id, { file: 'content.js', allFrames: false });
-                });
-            });
+    } 
+    else {
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+            chrome.tabs.sendMessage(tabs[0].id, {action: "start_logging"}, function(response) {});  
         });
-        change();
+        // chrome.windows.getCurrent(function (currentWindow) {
+        //     chrome.tabs.query({ active: true, windowId: currentWindow.id }, function (activeTabs) {
+        //         activeTabs.map(function (tab) {
+        //             chrome.tabs.executeScript(tab.id, { file: 'content.js', allFrames: false });
+        //         });
+        //     });
+        // });
     }
+    change();
 }
 
 
@@ -25,8 +29,9 @@ else elem.value = "Stop";
 }
 
 stop = function(){
-    clearTimeout(log_data);
-    log_data = null;
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+        chrome.tabs.sendMessage(tabs[0].id, {action: "stop_logging"}, function(response) {});  
+    });
 }
 
 startButton.addEventListener("click", startStopLogging);
