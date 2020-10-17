@@ -1,26 +1,24 @@
-from flask import Flask
 import os
- 
+import socketio
+
+from flask import Flask, render_template
+from flask_socketio import SocketIO
+
 app = Flask(__name__)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
+@socketio.on('connect')
+def test_connect():
+    print("Connected")
 
-userLogFile = userLogFile = open("userLogFile.txt", "a")
-userAddHeader = False
-leaderLogFile = userLogFile = open("LeaderLogFile.txt", "a")
-leaderAddHeader = False
+@socketio.on('test')
+def test_connect(message):
+    print(message)
 
-if userLogFile.tell() == 0:
-    userLogFile.write("")
-if leaderLogFile.tell() == 0:
-    leaderLogFile.write("")
+@socketio.on('disconnect')
+def test_disconnect():
+    print('Client disconnected')
 
-
-@app.route('/userScore', methods=['POST'])
-def logUserScore():
-    return 'Hello World'
-
-@app.route('/leaderBoard', methods=['POST'])
-def logLeaderBoard():
-    return 'Hello World'
- 
-app.run(host='localhost', port=30000)
+if __name__ == '__main__':
+    socketio.run(app,host="localhost", port=8080)
+    print("Started App")

@@ -22,8 +22,8 @@ function scan_scores(old_score, scoreElements){
 }
 
 function send_data(){
-	var ws = new WebSocket("ws://localhost:3330");
-	ws.send("Message to send");
+	//var ws = new WebSocket("ws://localhost:3330");
+	//ws.send("Message to send");
 }
 
 //scan_scores(0,scoreElements);
@@ -37,8 +37,8 @@ function test(){
 chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
 	if (msg.action == 'start_logging') {
 		if (interval == null){
-			var socket = io();
-			//interval = setInterval(test, 50);
+			var socket = io("http://localhost:8080");
+			console.log("Connected to Server");
 		}
 			
 		
