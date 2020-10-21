@@ -15,7 +15,7 @@ It is recommended to use a virtual environment for this project
 1. Install required packages using `pip intall -r requiremnts.txt`
 2. Run the python server using `python save_data.py`
 
-##Using the app
+## Using the app
 1. Run the python server using `python save_data.py`
 2. Goto http://slither.io/
 3. Click _Play_ button
