@@ -19,7 +19,7 @@ It is recommended to use a virtual environment for this project
 1. Run the python server using `python save_data.py`
 2. Goto http://slither.io/
 3. Click _Play_ button
-4. Open up the Chrome SlitherScraper Extension and Click the Start Button to start logging your in game statistics 
+4. Then open up the Chrome SlitherScraper Extension and Click the Start Button to start logging your in game statistics 
 *note that you need to click play before you start the extension. The extension will automatically pause in between lives/game rounds. 
 5. To stop logging simply close the game
 
